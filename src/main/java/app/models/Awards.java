@@ -1,10 +1,17 @@
-package app.model;
+package app.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
 
-public class Awards {
+@Entity
+@Table
+public class Awards implements Serializable{
 
     /** Fields */
+    @Id
     private Long id;
     private List<Medal> medalsList;
 

@@ -1,8 +1,16 @@
-package app.model;
+package app.models;
 
-public class Medal {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+@Entity
+@Table
+public class Medal implements Serializable {
 
     /** Fields */
+    @Id
     private Long id;
     private String name;
     private String description;

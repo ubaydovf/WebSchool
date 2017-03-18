@@ -1,11 +1,18 @@
-package app.model;
+package app.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
+@Entity
+@Table
+public class Book implements Serializable {
 
     /** Fields  */
+    @Id
     private Long id;
     private String name;
     private String authors;

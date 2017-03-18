@@ -1,0 +1,15 @@
+spring:
+  profiles: prod
+datasource:
+  sampleapp:
+    url: jdbc:mysql://localhost:3306/FiraExample?useSSL=false
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+    defaultSchema:
+    maxPoolSize: 20
+    hibernate:
+      hbm2ddl.method: update
+      show_sql: false
+      format_sql: true
+      dialect: org.hibernate.dialect.MySQLDialect

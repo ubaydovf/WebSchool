@@ -1,11 +1,18 @@
-package app.model;
+package app.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class Marks {
+@Entity
+@Table
+public class Marks implements Serializable {
 
     /** Fields */
+    @Id
     private Long id;
     private List<Subject> subjects;
     private Map<Subject, List<Integer>> subjectMarks;

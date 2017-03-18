@@ -1,10 +1,17 @@
-package app.model;
+package app.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
 
-public class Class {
+@Entity
+@Table
+public class Clazz implements Serializable {
 
-    /** Class fields*/
+    /** Clazz fields*/
+    @Id
     private Long id;
     private Integer id_n;
     private Character id_c;
@@ -16,10 +23,10 @@ public class Class {
     private Awards awards;
 
     /** Constructors */
-    public Class() {
+    public Clazz() {
     }
 
-    public Class(Integer id_n, Character id_c, String language) {
+    public Clazz(Integer id_n, Character id_c, String language) {
         this.id_n = id_n;
         this.id_c = id_c;
         this.language = language;

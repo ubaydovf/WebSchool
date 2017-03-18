@@ -1,11 +1,18 @@
-package app.model;
+package app.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Student {
+@Entity
+@Table
+public class Student implements Serializable {
 
     /** Student Fields  */
+    @Id
     private Long id;
     private String name;
     private String sureName;
@@ -15,7 +22,7 @@ public class Student {
     private Boolean sex;
     private String address;
     private String nation;
-    private Class selfClass;
+    private Clazz selfClazz;
     private Marks marks;
     private List<Book> books;
     private Schedule schedule;
@@ -28,7 +35,7 @@ public class Student {
 
     public Student(String name, String sureName, String lastName,
                     Integer age, Date dateOfBirth, Boolean sex,
-                        String address, String nation, Class selfClass) {
+                        String address, String nation, Clazz selfClazz) {
         this.name = name;
         this.sureName = sureName;
         this.lastName = lastName;
@@ -37,7 +44,7 @@ public class Student {
         this.sex = sex;
         this.address = address;
         this.nation = nation;
-        this.selfClass = selfClass;
+        this.selfClazz = selfClazz;
         this.marks = marks;
         this.books = books;
         this.schedule = schedule;
@@ -118,12 +125,12 @@ public class Student {
         this.nation = nation;
     }
 
-    public Class getSelfClass() {
-        return selfClass;
+    public Clazz getSelfClazz() {
+        return selfClazz;
     }
 
-    public void setSelfClass(Class selfClass) {
-        this.selfClass = selfClass;
+    public void setSelfClazz(Clazz selfClazz) {
+        this.selfClazz = selfClazz;
     }
 
     public Marks getMarks() {
