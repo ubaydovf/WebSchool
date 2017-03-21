@@ -1,29 +1,31 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
 public class Student implements Serializable {
 
     /** Student Fields  */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String sureName;
     private String lastName;
-    private Integer age;
-    private Date dateOfBirth;
-    private Boolean sex;
+    private Integer age;        /** Возраст должен автоматом считаться при вводе Дня Рождения, ИСПРАВИТЬ !*/
+    private Date dateOfBirth;   /** Нужно вводить дату понятную человеком, а не в миллисекундах, ИСПРАВИТЬ !*/
+    private Boolean sex;        /** Что за дискриминация? а если человек не определился с выбором ПОЛА ?! */
     private String address;
     private String nation;
+
+    @ManyToOne
     private Clazz selfClazz;
     private Marks marks;
+
+    @ManyToMany
     private List<Book> books;
     private Schedule schedule;
     private Awards awards;
@@ -34,8 +36,8 @@ public class Student implements Serializable {
     }
 
     public Student(String name, String sureName, String lastName,
-                    Integer age, Date dateOfBirth, Boolean sex,
-                        String address, String nation, Clazz selfClazz) {
+                   Integer age, Date dateOfBirth, Boolean sex,
+                   String address, String nation, Clazz selfClazz) {
         this.name = name;
         this.sureName = sureName;
         this.lastName = lastName;
@@ -61,6 +63,11 @@ public class Student implements Serializable {
     }
 
     /** Setter and Getters */
+
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

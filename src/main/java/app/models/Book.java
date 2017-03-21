@@ -1,35 +1,36 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 public class Book implements Serializable {
 
     /** Fields  */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String authors;
     private String dateOfCreation;
-    private List<Student> holders;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Student> holders = new ArrayList<>();
     private static int count = 0;
 
 
     /** Constructors  */
     public Book() {
-        holders = new ArrayList<>();
+
     }
 
     public Book(String name, String authors, String date) {
         this.name = name;
         this.authors = authors;
         this.dateOfCreation = date;
+
         holders = new ArrayList<>();
     }
 
@@ -43,6 +44,11 @@ public class Book implements Serializable {
     }
 
     /** Setter and Getters */
+
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

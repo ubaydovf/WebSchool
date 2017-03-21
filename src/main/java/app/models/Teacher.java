@@ -2,12 +2,9 @@ package app.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
-@Table
 public class Teacher implements Serializable {
 
     /** Fields */
@@ -16,9 +13,9 @@ public class Teacher implements Serializable {
     private String name;
     private String sureName;
     private String lastName;
-    private List<Subject> subjects;
+//    private List<Subject> subjects;
     private Schedule schedule;
-    private List<Clazz> clazzes;
+//    private List<Clazz> clazzes;
     private Awards award;
 
     /** Constructors */
@@ -32,20 +29,20 @@ public class Teacher implements Serializable {
     }
 
     /** Methods */
-    public void addSubject(Subject subject){
-        subjects.add(subject);
-    }
-
-    public void removeSubject(Subject subject){
-        subjects.remove(subject);
-    }
-    public void addClass(Clazz clazz){
-        clazzes.add(clazz);
-    }
-
-    public void removeClass(Clazz clazz){
-        clazzes.remove(clazz);
-    }
+//    public void addSubject(Subject subject){
+//        subjects.add(subject);
+//    }
+//
+//    public void removeSubject(Subject subject){
+//        subjects.remove(subject);
+//    }
+//    public void addClass(Clazz clazz){
+//        clazzes.add(clazz);
+//    }
+//
+//    public void removeClass(Clazz clazz){
+//        clazzes.remove(clazz);
+//    }
 
     /** Getters and Setters */
     public Long getId() {
@@ -80,13 +77,13 @@ public class Teacher implements Serializable {
         this.lastName = lastName;
     }
 
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
+//    public List<Subject> getSubjects() {
+//        return subjects;
+//    }
+//
+//    public void setSubjects(List<Subject> subjects) {
+//        this.subjects = subjects;
+//    }
 
     public Schedule getSchedule() {
         return schedule;
@@ -96,13 +93,13 @@ public class Teacher implements Serializable {
         this.schedule = schedule;
     }
 
-    public List<Clazz> getClazzes() {
-        return clazzes;
-    }
-
-    public void setClazzes(List<Clazz> clazzes) {
-        this.clazzes = clazzes;
-    }
+//    public List<Clazz> getClazzes() {
+//        return clazzes;
+//    }
+//
+//    public void setClazzes(List<Clazz> clazzes) {
+//        this.clazzes = clazzes;
+//    }
 
     public Awards getAward() {
         return award;
