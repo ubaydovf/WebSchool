@@ -17,7 +17,7 @@ public class RestSubjectController {
 
     @RequestMapping(value = "/subjects", method = RequestMethod.GET)
     public ResponseEntity<List<Subject>> getStudents(){
-        return new ResponseEntity(subjectService.getSubjects(), HttpStatus.OK);
+        return new ResponseEntity<>(subjectService.getSubjects(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.GET)
@@ -27,18 +27,18 @@ public class RestSubjectController {
 
     @RequestMapping(value = "/subjects", method = RequestMethod.POST)
     public ResponseEntity<?> createSubject(@RequestBody Subject subject){
-        return new ResponseEntity(subjectService.addSubject(subject), HttpStatus.OK);
+        return new ResponseEntity<>(subjectService.addSubject(subject), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateSubject(@RequestBody Subject subject){
-        return new ResponseEntity(subjectService.updateSubject(subject), HttpStatus.OK);
+        return new ResponseEntity<>(subjectService.updateSubject(subject), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSubject(@PathVariable Long id){
         subjectService.deleteSubjectById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

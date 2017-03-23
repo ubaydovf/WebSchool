@@ -17,7 +17,7 @@ public class RestClazzController {
 
     @RequestMapping(value = "/classes", method = RequestMethod.GET)
     public ResponseEntity<List<Clazz>> getClasses(){
-        return new ResponseEntity(clazzService.getClazzes(), HttpStatus.OK);
+        return new ResponseEntity<>(clazzService.getClazzes(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/classes/{id}", method = RequestMethod.GET)
@@ -27,12 +27,12 @@ public class RestClazzController {
 
     @RequestMapping(value = "/classes", method = RequestMethod.POST)
     public ResponseEntity<?> createClass(@RequestBody Clazz clazz){
-        return new ResponseEntity(clazzService.addClazz(clazz), HttpStatus.OK);
+        return new ResponseEntity<>(clazzService.addClazz(clazz), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/classes/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateClass(@RequestBody Clazz clazz){
-        return new ResponseEntity(clazzService.updateClazz(clazz), HttpStatus.OK);
+        return new ResponseEntity<>(clazzService.updateClazz(clazz), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/classes/{id}", method = RequestMethod.DELETE)

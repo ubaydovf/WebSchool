@@ -17,7 +17,7 @@ public class RestBookController {
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getBooks(){
-        return new ResponseEntity(bookService.getBooks(), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
@@ -27,12 +27,12 @@ public class RestBookController {
 
     @RequestMapping(value = "/books", method = RequestMethod.POST)
     public ResponseEntity<?> createBook(@RequestBody Book book){
-        return new ResponseEntity(bookService.addBook(book), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.addBook(book), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateBook(@RequestBody Book book){
-        return new ResponseEntity(bookService.updateBook(book), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.updateBook(book), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)

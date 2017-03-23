@@ -19,7 +19,7 @@ public class RestStudentController {
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public ResponseEntity<List<Student>> getStudents(){
         /** Here is has to be code to get a Students */
-        return new ResponseEntity(studentService.getStudents(), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
     }
 
     /** Get Student by ID */
@@ -34,14 +34,14 @@ public class RestStudentController {
     public ResponseEntity<?> createStudent(@RequestBody Student student){
         /** Here is has to be code to create a student */
 //        student.setSelfClazz(student.getSelfClazz());
-        return new ResponseEntity(studentService.addStudent(student), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.addStudent(student), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/students/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateStudent(@RequestBody Student student){
 
         /** Here is has to be code to create a student */
-        return new ResponseEntity(studentService.updateStudent(student), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.updateStudent(student), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE)
