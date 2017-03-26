@@ -15,6 +15,11 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
+    public List<Book> findBookByHoldersId(Long holdersId) {
+        return bookRepository.findBookByHoldersId(holdersId);
+    }
+
+    @Override
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }

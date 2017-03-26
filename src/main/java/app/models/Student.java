@@ -2,6 +2,7 @@ package app.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +22,18 @@ public class Student implements Serializable {
     private String address;
     private String nation;
 
-    @ManyToOne
-    private Clazz selfClazz;
+//    @ManyToOne
+    private Long clazzId;
+
     private Marks marks;
 
     @ManyToMany
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
+
+    @OneToOne
     private Schedule schedule;
+
+    @OneToOne
     private Awards awards;
     private Boolean isCaptain;
 
@@ -37,7 +43,7 @@ public class Student implements Serializable {
 
     public Student(String name, String sureName, String lastName,
                    Integer age, Date dateOfBirth, Boolean sex,
-                   String address, String nation, Clazz selfClazz) {
+                   String address, String nation) {
         this.name = name;
         this.sureName = sureName;
         this.lastName = lastName;
@@ -46,7 +52,25 @@ public class Student implements Serializable {
         this.sex = sex;
         this.address = address;
         this.nation = nation;
-        this.selfClazz = selfClazz;
+        this.marks = marks;
+        this.books = books;
+        this.schedule = schedule;
+        this.awards = awards;
+        this.isCaptain = isCaptain;
+    }
+
+    public Student(String name, String sureName, String lastName,
+                   Integer age, Date dateOfBirth, Boolean sex,
+                   String address, String nation, Long classId) {
+        this.name = name;
+        this.sureName = sureName;
+        this.lastName = lastName;
+        this.age = age;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.nation = nation;
+        this.clazzId = classId;
         this.marks = marks;
         this.books = books;
         this.schedule = schedule;
@@ -55,11 +79,11 @@ public class Student implements Serializable {
     }
 
     /** Methods */
-    public void addBook(Book book){
-        books.add(book);
+    public void addBook(Book bookId){
+        books.add(bookId);
     }
-    public void removeBook(Book book){
-        books.remove(book);
+    public void removeBook(Book bookId){
+        books.remove(bookId);
     }
 
     /** Setter and Getters */
@@ -132,12 +156,12 @@ public class Student implements Serializable {
         this.nation = nation;
     }
 
-    public Clazz getSelfClazz() {
-        return selfClazz;
+    public Long getSelfClazz() {
+        return clazzId;
     }
 
-    public void setSelfClazz(Clazz selfClazz) {
-        this.selfClazz = selfClazz;
+    public void setSelfClazz(Long classId) {
+        this.clazzId = classId;
     }
 
     public Marks getMarks() {

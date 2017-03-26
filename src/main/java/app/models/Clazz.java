@@ -2,6 +2,7 @@ package app.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,9 @@ public class Clazz implements Serializable {
     private String language;
 
     @OneToMany
-    private List<Student> students;
+    private List<Student> students = new ArrayList<>();
+
+    @ManyToOne
     private Teacher classTeacher;
     private Student captain;
     private Schedule schedule;

@@ -41,6 +41,4 @@ public class RestSubjectController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-
 }

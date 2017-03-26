@@ -1,6 +1,7 @@
 package app.controllers.rest;
 
 import app.interfaces.ClazzService;
+import app.interfaces.StudentService;
 import app.models.Clazz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,8 @@ public class RestClazzController {
 
     @Autowired
     private ClazzService clazzService;
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping(value = "/classes", method = RequestMethod.GET)
     public ResponseEntity<List<Clazz>> getClasses(){
@@ -40,5 +43,5 @@ public class RestClazzController {
         clazzService.deleteClazzById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
+    /** ----------- //// ---------- /////////// ------------ ////////// -------- */
 }

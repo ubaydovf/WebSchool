@@ -16,10 +16,9 @@ public class Book implements Serializable {
     private String authors;
     private String dateOfCreation;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     private List<Student> holders = new ArrayList<>();
     private static int count = 0;
-
 
     /** Constructors  */
     public Book() {
@@ -30,17 +29,15 @@ public class Book implements Serializable {
         this.name = name;
         this.authors = authors;
         this.dateOfCreation = date;
-
-        holders = new ArrayList<>();
     }
 
     /** Methods */
-    public void addHolder(Student student){
-        holders.add(student);
+    public void addHolder(Student id){
+        holders.add(id);
     }
 
-    public void removeHolder(Student student){
-        holders.remove(student);
+    public void removeHolder(Student id){
+        holders.remove(id);
     }
 
     /** Setter and Getters */
