@@ -19,10 +19,15 @@ public class Clazz implements Serializable {
     @OneToMany
     private List<Student> students = new ArrayList<>();
 
-    @ManyToOne
-    private Teacher classTeacher;
+    private Long classTeacher;
+
+    @OneToOne
     private Student captain;
+
+    @OneToOne
     private Schedule schedule;
+
+    @OneToOne
     private Awards awards;
 
     /** Constructors */
@@ -82,11 +87,11 @@ public class Clazz implements Serializable {
         this.students = students;
     }
 
-    public Teacher getClassTeacher() {
+    public Long getClassTeacher() {
         return classTeacher;
     }
 
-    public void setClassTeacher(Teacher classTeacher) {
+    public void setClassTeacher(Long classTeacher) {
         this.classTeacher = classTeacher;
     }
 

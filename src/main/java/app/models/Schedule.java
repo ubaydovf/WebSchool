@@ -1,30 +1,42 @@
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class Schedule implements Serializable {
 
     /** Fields */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    private List<Clazz> clazzes;
-//    private Map<Clazz, List<List<Byte>>> marks;
+
+    @ManyToMany
+    private Map<String, ScheduleDay> scheduleWeek = new HashMap<>();
 
     /** Constructors */
+
     public Schedule() {
     }
 
+    public Schedule(Map<String, ScheduleDay> scheduleWeek) {
+        this.scheduleWeek = scheduleWeek;
+    }
+
     /** Methods */
-//    public void addClass(Clazz clazz){
-//        clazzes.add(clazz);
-//    }
-//
-//    public void removeClass(Clazz clazz){
-//        clazzes.remove(clazz);
-//    }
+    public void setScheduleDay(Day day, ScheduleDay scheduleday) {
+        scheduleWeek.put(day.name(), scheduleday);
+    }
+
+    public void clearScheduleDay(Day day){
+        scheduleWeek.remove(day.name());
+    }
+
+    public ScheduleDay getScheduleDay(Day day) {
+        return scheduleWeek.get(day.name());
+    }
 
     /** Getter and Setters */
     public Long getId() {
@@ -35,19 +47,11 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-//    public List<Clazz> getClazzes() {
-//        return clazzes;
-//    }
-//
-//    public void setClazzes(List<Clazz> clazzes) {
-//        this.clazzes = clazzes;
-//    }
+    public Map<String, ScheduleDay> getScheduleWeek() {
+        return scheduleWeek;
+    }
 
-//    public Map<Clazz, List<List<Byte>>> getMarks() {
-//        return marks;
-//    }
-//
-//    public void setMarks(Map<Clazz, List<List<Byte>>> marks) {
-//        this.marks = marks;
-//    }
+    public void setScheduleWeek(Map<String, ScheduleDay> scheduleWeek) {
+        this.scheduleWeek = scheduleWeek;
+    }
 }

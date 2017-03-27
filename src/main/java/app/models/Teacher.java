@@ -2,6 +2,7 @@ package app.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,17 +10,23 @@ public class Teacher implements Serializable {
 
     /** Fields */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String sureName;
     private String lastName;
+    private Date dateOfBirth;
+    private Integer age;
 
     @ManyToMany
     private List<Subject> subjects;
+
+    @OneToOne
     private Schedule schedule;
 
     @OneToMany
     private List<Clazz> clazzes;
+
     @OneToOne
     private Awards award;
 
@@ -54,8 +61,20 @@ public class Teacher implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getName() {

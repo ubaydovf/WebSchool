@@ -12,6 +12,7 @@ public class Awards implements Serializable{
     /** Fields */
     @Id
     private Long id;
+
     @ManyToMany
     private List<Medal> medalsList;
 
@@ -30,6 +31,10 @@ public class Awards implements Serializable{
 
     public void setMedalsList(List<Medal> medalsList) {
         this.medalsList = medalsList;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     /** Methods */

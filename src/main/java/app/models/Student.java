@@ -30,7 +30,7 @@ public class Student implements Serializable {
     @ManyToMany
     private List<Book> books = new ArrayList<>();
 
-    @OneToOne
+    @ManyToOne
     private Schedule schedule;
 
     @OneToOne

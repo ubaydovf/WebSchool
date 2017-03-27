@@ -12,7 +12,7 @@ public class Marks implements Serializable {
     private Long id;
 
 //    @ManyToMany
-//    private Map<Subject, List<Integer>> subjectMarks;
+//    private Map<Subject, Map<String, String>> subjectMarks;
 
     /** Constructors */
     public Marks() {

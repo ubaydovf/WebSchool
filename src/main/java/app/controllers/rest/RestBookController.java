@@ -46,25 +46,30 @@ public class RestBookController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /* ----------- //// ---------- /////////// ------------ ////////// -------- */
+
     @RequestMapping(value = "/classes/{classId}/students/{studentId}/books", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getStudentBooks(@PathVariable Long studentId) {
-        return new ResponseEntity<>(bookService.findBookByHoldersId(studentId), HttpStatus.OK);
+        Student student = studentService.getStudentById(studentId);
+        return new ResponseEntity<>(student.getBooks(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/classes/{classId}/students/{studentId}/books", method = RequestMethod.POST)
-    public ResponseEntity<Student> createStudentBook(@RequestBody Book book, @PathVariable Long studentId) {
+    @RequestMapping(value = "/classes/{classId}/students/{studentId}/books", method = RequestMethod.PUT)
+    public ResponseEntity<Student> addBookToStudent(@RequestBody Book book, @PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);
-//        Adding book to Book table
-        bookService.addBook(book);
-//        Saving added Book to student
+//        Adding Book to student
         student.addBook(book);
-//        Saving modified student and returning student
+//        Saving modified student and returning as response
         return new ResponseEntity<>(studentService.updateStudent(student), HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/classes/{classId}/students/{studentId}/books", method = RequestMethod.GET)
-//    public ResponseEntity<List<Book>> getStudentBooks(@PathVariable Long studentId){
-//        return new ResponseEntity<>(bookService.findBookByHoldersId(studentId), HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/classes/{classId}/students/{studentId}/books", method = RequestMethod.DELETE)
+    public ResponseEntity<List<Book>> removeStudentBooks(@RequestBody Book book, @PathVariable Long studentId){
+        Student student = studentService.getStudentById(studentId);
+        Book book1 = bookService.getBookById(book.getId());
+        student.removeBook(book1);
+        studentService.updateStudent(student);
+        return new ResponseEntity<>(student.getBooks(), HttpStatus.OK);
+    }
 
 }
