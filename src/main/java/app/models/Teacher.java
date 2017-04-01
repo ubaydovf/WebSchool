@@ -1,5 +1,7 @@
 package app.models;
 
+import app.models.schedule.ScheduleWeek;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class Teacher implements Serializable {
     private List<Subject> subjects;
 
     @OneToOne
-    private Schedule schedule;
+    private ScheduleWeek scheduleWeek;
 
     @OneToMany
     private List<Clazz> clazzes;
@@ -109,12 +111,12 @@ public class Teacher implements Serializable {
         this.subjects = subjects;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
+    public ScheduleWeek getScheduleWeek() {
+        return scheduleWeek;
     }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void setScheduleWeek(ScheduleWeek scheduleWeek) {
+        this.scheduleWeek = scheduleWeek;
     }
 
     public List<Clazz> getClazzes() {

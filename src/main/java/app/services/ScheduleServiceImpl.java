@@ -1,7 +1,7 @@
 package app.services;
 
 import app.interfaces.ScheduleService;
-import app.models.Schedule;
+import app.models.schedule.Schedule;
 import app.repositories.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

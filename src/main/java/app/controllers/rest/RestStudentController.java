@@ -66,36 +66,19 @@ public class RestStudentController {
 
     /** Put a students into a Class*/
     @RequestMapping(value = "/classes/{id}/students", method = RequestMethod.PUT)
-    public ResponseEntity<Clazz> addStudentToClass(@RequestBody List<Student> students, @PathVariable Long id){
-        Clazz clazz = clazzService.getClazzById(id);    /* Get a class by {id} */
-//        List<Student> studentList = studentService.findStudentByClazzId(clazz.getId());
-
-//      Iteration over student list and adding reference each other
-        for (Student student : students) {
-            Student tmp = studentService.getStudentById(student.getId()); /* Пусть пока будет так */
-            clazz.addStudent(tmp);                      /* Adding student to class */
-            tmp.setSelfClazz(clazz.getId());                    /* Adding class to student */
-            studentService.updateStudent(tmp);          /* Saving updated student */
-        }
-
-        /* Saving updated class and return it as response */
-        return new ResponseEntity<>(clazzService.updateClazz(clazz), HttpStatus.OK);
+    public ResponseEntity<?> addStudentToClass(@RequestBody Student student, @PathVariable Long id){
+        Student studentById = studentService.getStudentById(student.getId());
+        studentById.setSelfClazz(id);
+        studentService.updateStudent(studentById);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /** Delete a student/students from Class */
     @RequestMapping(value = "/classes/{id}/students", method = RequestMethod.DELETE)
-    public ResponseEntity<Clazz> deleteStudentFromClass(@RequestBody List<Student> studentList, @PathVariable Long id){
-        Clazz clazz = clazzService.getClazzById(id);    /* Get a class by {id} */
-
-//      Iteration over student list and deleting reference to each other
-        for (Student student : studentList) {
-            Student student1 = studentService.getStudentById(student.getId());
-            clazz.removeStudent(student1);                      /* Remove student from class */
-            student1.setSelfClazz(null);                    /* Remove class from student*/
-            studentService.updateStudent(student1);          /* Saving updated student */
-        }
-
-//        /* Saving updated class and return it as response */
-        return new ResponseEntity<>(clazzService.updateClazz(clazz), HttpStatus.OK);
+    public ResponseEntity<Clazz> deleteStudentFromClass(@RequestBody Student student, @PathVariable Long id){
+        Student student1 = studentService.getStudentById(student.getId());
+        student1.setSelfClazz(null);
+        studentService.updateStudent(student1);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

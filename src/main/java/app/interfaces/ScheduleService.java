@@ -1,6 +1,6 @@
 package app.interfaces;
 
-import app.models.Schedule;
+import app.models.schedule.Schedule;
 
 import java.util.List;
 

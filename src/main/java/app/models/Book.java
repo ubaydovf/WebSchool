@@ -1,9 +1,10 @@
 package app.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Book implements Serializable {
@@ -15,9 +16,6 @@ public class Book implements Serializable {
     private String name;
     private String authors;
     private String dateOfCreation;
-
-    @ManyToMany
-    private List<Student> holders = new ArrayList<>();
     private static int count = 0;
 
     /** Constructors  */
@@ -29,15 +27,6 @@ public class Book implements Serializable {
         this.name = name;
         this.authors = authors;
         this.dateOfCreation = date;
-    }
-
-    /** Methods */
-    public void addHolder(Student id){
-        holders.add(id);
-    }
-
-    public void removeHolder(Student id){
-        holders.remove(id);
     }
 
     /** Setter and Getters */
@@ -68,14 +57,6 @@ public class Book implements Serializable {
 
     public void setDateOfCreation(String dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
-    }
-
-    public List<Student> getHolders() {
-        return holders;
-    }
-
-    public void setHolders(List<Student> holders) {
-        this.holders = holders;
     }
 
     public static int getCount() {

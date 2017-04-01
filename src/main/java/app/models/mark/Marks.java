@@ -1,4 +1,4 @@
-package app.models;
+package app.models.mark;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

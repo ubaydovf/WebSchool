@@ -2,8 +2,6 @@ package app.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Clazz implements Serializable {
@@ -16,16 +14,9 @@ public class Clazz implements Serializable {
     private Character id_c;
     private String language;
 
-    @OneToMany
-    private List<Student> students = new ArrayList<>();
-
     private Long classTeacher;
 
-    @OneToOne
-    private Student captain;
-
-    @OneToOne
-    private Schedule schedule;
+    private Long captainId;
 
     @OneToOne
     private Awards awards;
@@ -41,14 +32,6 @@ public class Clazz implements Serializable {
     }
 
     /** Methods */
-
-    public void addStudent(Student student){
-        students.add(student);
-    }
-
-    public void removeStudent(Student student){
-        students.remove(student);
-    }
 
     /** Getters and Setters */
     public Long getId() {
@@ -79,14 +62,6 @@ public class Clazz implements Serializable {
         this.language = language;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
     public Long getClassTeacher() {
         return classTeacher;
     }
@@ -95,20 +70,12 @@ public class Clazz implements Serializable {
         this.classTeacher = classTeacher;
     }
 
-    public Student getCaptain() {
-        return captain;
+    public Long getCaptainId() {
+        return captainId;
     }
 
-    public void setCaptain(Student captain) {
-        this.captain = captain;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void setCaptainId(Long captainId) {
+        this.captainId = captainId;
     }
 
     public Awards getAwards() {

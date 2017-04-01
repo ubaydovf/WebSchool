@@ -1,4 +1,6 @@
-package app.models;
+package app.models.schedule;
+
+import app.models.Subject;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,23 +15,23 @@ public class ScheduleDay implements Serializable {
     private Long id;
 
     @ManyToMany
-    private List<Subject> schedule = new ArrayList<>();
+    private List<Subject> scheduleDayMap = new ArrayList<>();
 
     /** Constructors */
     public ScheduleDay() {
     }
 
     public ScheduleDay(List<Subject> scheduleDay) {
-        this.schedule = scheduleDay;
+        this.scheduleDayMap = scheduleDay;
     }
 
     /** Methods */
     public void addSubject(Subject subject) {
-        schedule.add(subject);
+        scheduleDayMap.add(subject);
     }
 
     public void removeSubject(Subject subject) {
-        schedule.remove(subject);
+        scheduleDayMap.remove(subject);
     }
 
     /** Getter and Setters */
@@ -37,11 +39,11 @@ public class ScheduleDay implements Serializable {
         return id;
     }
 
-    public List<Subject> getSchedule() {
-        return schedule;
+    public List<Subject> getScheduleDayMap() {
+        return scheduleDayMap;
     }
 
-    public void setSchedule(List<Subject> schedule) {
-        this.schedule = schedule;
+    public void setScheduleDayMap(List<Subject> scheduleDayMap) {
+        this.scheduleDayMap = scheduleDayMap;
     }
 }

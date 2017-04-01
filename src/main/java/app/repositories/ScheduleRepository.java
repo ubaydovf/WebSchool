@@ -1,6 +1,6 @@
 package app.repositories;
 
-import app.models.Schedule;
+import app.models.schedule.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -21,17 +21,11 @@ public class Student implements Serializable {
     private Boolean sex;        /** Что за дискриминация? а если человек не определился с выбором ПОЛА ?! */
     private String address;
     private String nation;
-
-//    @ManyToOne
     private Long clazzId;
-
-    private Marks marks;
+    private Long marksId;
 
     @ManyToMany
     private List<Book> books = new ArrayList<>();
-
-    @ManyToOne
-    private Schedule schedule;
 
     @OneToOne
     private Awards awards;
@@ -52,9 +46,7 @@ public class Student implements Serializable {
         this.sex = sex;
         this.address = address;
         this.nation = nation;
-        this.marks = marks;
         this.books = books;
-        this.schedule = schedule;
         this.awards = awards;
         this.isCaptain = isCaptain;
     }
@@ -71,9 +63,7 @@ public class Student implements Serializable {
         this.address = address;
         this.nation = nation;
         this.clazzId = classId;
-        this.marks = marks;
         this.books = books;
-        this.schedule = schedule;
         this.awards = awards;
         this.isCaptain = isCaptain;
     }
@@ -136,6 +126,22 @@ public class Student implements Serializable {
         return sex;
     }
 
+    public Long getClazzId() {
+        return clazzId;
+    }
+
+    public void setClazzId(Long clazzId) {
+        this.clazzId = clazzId;
+    }
+
+    public Long getMarksId() {
+        return marksId;
+    }
+
+    public void setMarksId(Long marksId) {
+        this.marksId = marksId;
+    }
+
     public void setSex(Boolean sex) {
         this.sex = sex;
     }
@@ -164,28 +170,12 @@ public class Student implements Serializable {
         this.clazzId = classId;
     }
 
-    public Marks getMarks() {
-        return marks;
-    }
-
-    public void setMarks(Marks marks) {
-        this.marks = marks;
-    }
-
     public List<Book> getBooks() {
         return books;
     }
 
     public void setBooks(List<Book> books) {
         this.books = books;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
     }
 
     public Awards getAwards() {

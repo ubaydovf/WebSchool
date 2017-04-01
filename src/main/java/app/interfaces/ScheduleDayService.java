@@ -1,6 +1,6 @@
 package app.interfaces;
 
-import app.models.ScheduleDay;
+import app.models.schedule.ScheduleDay;
 
 import java.util.List;
 
