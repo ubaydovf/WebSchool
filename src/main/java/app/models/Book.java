@@ -16,7 +16,6 @@ public class Book implements Serializable {
     private String name;
     private String authors;
     private String dateOfCreation;
-    private static int count = 0;
 
     /** Constructors  */
     public Book() {
@@ -57,13 +56,5 @@ public class Book implements Serializable {
 
     public void setDateOfCreation(String dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
-    }
-
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        Book.count = count;
     }
 }

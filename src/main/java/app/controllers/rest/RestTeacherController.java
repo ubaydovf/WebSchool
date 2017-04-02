@@ -19,38 +19,61 @@ public class RestTeacherController {
     @Autowired
     private ClazzService clazzService;
 
+    /* Get a teachers */
+    /** ----------------------------- /teachers --------------------------------- */
     @RequestMapping(value = "/teachers", method = RequestMethod.GET)
     public ResponseEntity<List<Teacher>> getTeachers(){
-        return new ResponseEntity<>(teacherService.getTeachers(), HttpStatus.OK);
+        List<Teacher> teachers = teacherService.getTeachers();
+        if (teachers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(teachers, HttpStatus.OK);
     }
 
+    /* Get a teacher by Id */
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getTeacher(@PathVariable Long id){
-        return new ResponseEntity<>(teacherService.getTeacherById(id), HttpStatus.OK);
+        Teacher teacherById = teacherService.getTeacherById(id);
+        if (teacherById == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(teacherById, HttpStatus.OK);
     }
 
+    /* Create a teacher */
     @RequestMapping(value = "/teachers", method = RequestMethod.POST)
     public ResponseEntity<?> createTeacher(@RequestBody Teacher teacher){
+        if (teacher == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(teacherService.addTeacher(teacher), HttpStatus.OK);
     }
 
+    /* Edit a teacher */
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTeacher(@RequestBody Teacher teacher){
+        if (teacher == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(teacherService.updateTeacher(teacher), HttpStatus.OK);
     }
 
+    /* Delete teacher */
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteTeacher(@PathVariable Long id){
         teacherService.deleteTeacherById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /* ----------- //// ---------- /////////// ------------ ////////// -------- */
-
+    /* ----------------------------- /classes/{id}/teacher --------------------------------- */
     /** Get class teacher */
     @RequestMapping(value = "/classes/{id}/teacher", method = RequestMethod.GET)
     public ResponseEntity<Teacher> getClassTeacher(@PathVariable Long id){
-        return new ResponseEntity<>(teacherService.findTeacherByClazzesId(id), HttpStatus.OK);
+        Teacher teacher = teacherService.findTeacherByClazzesId(id);
+        if (teacher == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
 
     /** Put a teacher into a Class*/
@@ -58,14 +81,16 @@ public class RestTeacherController {
     public ResponseEntity<Clazz> addTeacherToClass(@RequestBody Teacher teacher, @PathVariable Long id){
         Clazz clazz = clazzService.getClazzById(id);    /* Get a class by {id} */
         /* Checking is there already teacher added in class, if yes, then remove teacher */
-        if (clazz.getClassTeacher() != null) {
-            teacherService.getTeacherById(clazz.getClassTeacher()).removeClass(clazz);
+        Teacher teacher1 = null;
+        if (teacher != null) {
+            teacher1 = teacherService.getTeacherById(teacher.getId()); /* Get a teacher by {id} */
         }
 
-        Teacher teacher1 = teacherService.getTeacherById(teacher.getId()); /* Get a teacher by {id} */
-        clazz.setClassTeacher(teacher1.getId());    /* add teacher to class */
-        teacher1.addClass(clazz);                   /* add class to teacher */
-        teacherService.updateTeacher(teacher1);     /* update teacher */
+        if (teacher1 == null || clazz == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        clazz.setTeacherId(teacher1.getId());    /* add teacher to class */
 
         /* Saving updated class and return it as response */
         return new ResponseEntity<>(clazzService.updateClazz(clazz), HttpStatus.OK);
@@ -73,12 +98,12 @@ public class RestTeacherController {
 
     /** Delete a teacher from Class */
     @RequestMapping(value = "/classes/{id}/teacher", method = RequestMethod.DELETE)
-    public ResponseEntity<Clazz> deleteStudentFromClass(@RequestBody Teacher teacher, @PathVariable Long id){
+    public ResponseEntity<Clazz> deleteTeacherFromClass(@PathVariable Long id){
         Clazz clazz = clazzService.getClazzById(id);    /* Get a class by {id} */
-        Teacher teacher1 = teacherService.getTeacherById(teacher.getId());
-        teacher1.removeClass(clazz); // remove class from teacher's class list
-        clazz.setClassTeacher(null);    //remove teacher from class
-        teacherService.updateTeacher(teacher1);  /* update teacher */
+        if (clazz == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        clazz.setTeacherId(null);    //remove teacher from class
 
         /* Saving updated class and return it as response */
         return new ResponseEntity<>(clazzService.updateClazz(clazz), HttpStatus.OK);

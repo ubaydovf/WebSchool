@@ -27,8 +27,7 @@ public class Student implements Serializable {
     @ManyToMany
     private List<Book> books = new ArrayList<>();
 
-    @OneToOne
-    private Awards awards;
+    private Long awardsId;
     private Boolean isCaptain;
 
     /** Constructors */
@@ -46,9 +45,6 @@ public class Student implements Serializable {
         this.sex = sex;
         this.address = address;
         this.nation = nation;
-        this.books = books;
-        this.awards = awards;
-        this.isCaptain = isCaptain;
     }
 
     public Student(String name, String sureName, String lastName,
@@ -63,9 +59,6 @@ public class Student implements Serializable {
         this.address = address;
         this.nation = nation;
         this.clazzId = classId;
-        this.books = books;
-        this.awards = awards;
-        this.isCaptain = isCaptain;
     }
 
     /** Methods */
@@ -178,12 +171,12 @@ public class Student implements Serializable {
         this.books = books;
     }
 
-    public Awards getAwards() {
-        return awards;
+    public Long getAwards() {
+        return awardsId;
     }
 
-    public void setAwards(Awards awards) {
-        this.awards = awards;
+    public void setAwards(Long awards) {
+        this.awardsId = awards;
     }
 
     public Boolean getCaptain() {

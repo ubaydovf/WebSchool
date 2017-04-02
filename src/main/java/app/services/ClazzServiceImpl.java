@@ -39,4 +39,9 @@ public class ClazzServiceImpl implements ClazzService{
     public void deleteClazzById(Long id) {
         clazzRepository.delete(id);
     }
+
+    @Override
+    public List<Clazz> findAllByTeacherId(Long teacherId) {
+        return clazzRepository.findAllByTeacherId(teacherId);
+    }
 }

@@ -15,4 +15,6 @@ public interface ClazzService {
     Clazz updateClazz(Clazz clazz);
 
     void deleteClazzById(Long id);
+
+    List<Clazz> findAllByTeacherId(Long teacherId);
 }

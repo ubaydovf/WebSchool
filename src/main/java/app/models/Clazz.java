@@ -13,13 +13,9 @@ public class Clazz implements Serializable {
     private Integer id_n;
     private Character id_c;
     private String language;
-
-    private Long classTeacher;
-
+    private Long teacherId;
     private Long captainId;
-
-    @OneToOne
-    private Awards awards;
+    private Long awardsId;
 
     /** Constructors */
     public Clazz() {
@@ -62,12 +58,12 @@ public class Clazz implements Serializable {
         this.language = language;
     }
 
-    public Long getClassTeacher() {
-        return classTeacher;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setClassTeacher(Long classTeacher) {
-        this.classTeacher = classTeacher;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
     public Long getCaptainId() {
@@ -78,11 +74,11 @@ public class Clazz implements Serializable {
         this.captainId = captainId;
     }
 
-    public Awards getAwards() {
-        return awards;
+    public Long getAwards() {
+        return awardsId;
     }
 
-    public void setAwards(Awards awards) {
-        this.awards = awards;
+    public void setAwards(Long awards) {
+        this.awardsId = awards;
     }
 }

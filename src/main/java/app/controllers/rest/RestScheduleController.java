@@ -1,9 +1,8 @@
 package app.controllers.rest;
 
-import app.interfaces.ScheduleDayService;
 import app.interfaces.ScheduleService;
-import app.interfaces.ScheduleWeekService;
-import app.interfaces.SubjectService;
+import app.interfaces.StudentService;
+import app.models.Student;
 import app.models.schedule.Schedule;
 import app.models.schedule.ScheduleDay;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +18,22 @@ public class RestScheduleController {
     @Autowired
     private ScheduleService scheduleService;
     @Autowired
-    private ScheduleWeekService scheduleWeekService;
-    @Autowired
-    private ScheduleDayService scheduleDayService;
-    @Autowired
-    private SubjectService subjectService;
+    private StudentService studentService;
 
+    /** -------------------------    /schedules     ----------------------- */
     /* Get a schedule */
     @RequestMapping(value = "/schedules", method = RequestMethod.GET)
     public ResponseEntity<List<Schedule>> getStudents(){
-        return new ResponseEntity<>(scheduleService.getSchedules(), HttpStatus.OK);
+        List<Schedule> schedules = scheduleService.getSchedules();
+        if (schedules.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
     /* Get a schedule by ID */
     @RequestMapping(value = "/schedules/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getSchedule(@PathVariable Long id){
+    public ResponseEntity<?> getScheduleById(@PathVariable Long id){
 //        subjectService.addSubject(new Subject("Math"));
 //        subjectService.addSubject(new Subject("French"));
 //        subjectService.addSubject(new Subject("Russian"));
@@ -103,31 +103,42 @@ public class RestScheduleController {
 //        schedule.setScheduleWeek("9G", week2);
 //
 //        scheduleService.updateSchedule(schedule);
-        return new ResponseEntity<>(scheduleService.getScheduleById(id), HttpStatus.OK);
+        Schedule scheduleById = scheduleService.getScheduleById(id);
+        if (scheduleById != null) {
+            return new ResponseEntity<>(scheduleById, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /* Create a Schedule */
     @RequestMapping(value = "/schedules", method = RequestMethod.POST)
     public ResponseEntity<?> createSchedule(@RequestBody Schedule schedule){
-        return new ResponseEntity<>(scheduleService.addSchedule(schedule), HttpStatus.OK);
+        if (schedule != null) {
+            return new ResponseEntity<>(scheduleService.addSchedule(schedule), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     /* Edit a scheduleWeek */
     @RequestMapping(value = "/schedules/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateSubject(@RequestBody Schedule schedule){
+    public ResponseEntity<?> updateSchedule(@RequestBody Schedule schedule){
+        if (schedule == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(scheduleService.updateSchedule(schedule), HttpStatus.OK);
     }
 
     /* Delete a schedule */
     @RequestMapping(value = "/schedules/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteSubject(@PathVariable Long id){
+    public ResponseEntity<?> deleteSchedule(@PathVariable Long id){
         scheduleService.deleteScheduleById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /* ----------------------------------------------------------------------------------- */
+    /** ------------------------- /classes/{clId}/schedule/{schId} ------------------------------- */
+    /* Get schedule by ID for class */
     @RequestMapping(value = "/classes/{clId}/schedule/{schId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getClass(@PathVariable Long clId, @PathVariable Long schId){
+    public ResponseEntity<?> getClassScheduleById(@PathVariable Long clId, @PathVariable Long schId){
         Schedule schedule = scheduleService.getScheduleById(schId);
         if (schedule != null) {
             return  new ResponseEntity<>(schedule.getScheduleWeek(clId), HttpStatus.OK);
@@ -135,15 +146,14 @@ public class RestScheduleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /* Get scheduleDay for class */
     @RequestMapping(value = "/classes/{clId}/schedule/{schId}/{weekDay}", method = RequestMethod.GET)
-    public ResponseEntity<?> getClass(@PathVariable Long clId,
-                                      @PathVariable Long schId, @PathVariable String weekDay){
-
-        weekDay = weekDay.toUpperCase();
+    public ResponseEntity<?> getWeekDayForClass(@PathVariable Long clId,
+                                                @PathVariable Long schId, @PathVariable String weekDay){
 
         Schedule schedule = scheduleService.getScheduleById(schId);
         if (schedule != null) {
-            ScheduleDay scheduleDay = schedule.getScheduleDay(clId, weekDay);
+            ScheduleDay scheduleDay = schedule.getScheduleDay(clId, weekDay.toUpperCase());
             if (scheduleDay != null) {
                 return  new ResponseEntity<>(scheduleDay, HttpStatus.OK);
             }
@@ -151,6 +161,30 @@ public class RestScheduleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /** ---------------------- /students/{stId}/schedule/{schId} --------------------------- */
+    /* Get ScheduleWeek for Student */
+    @RequestMapping(value = "/students/{stId}/schedule/{schId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getScheduleWeekForStudent(@PathVariable Long stId, @PathVariable Long schId){
+        Student student = studentService.getStudentById(stId);
+        if (student != null) {
+            if (student.getClazzId() != null ) {
+                return getClassScheduleById(student.getClazzId(), schId);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
+    /* Get ScheduleDay for Student */
+    @RequestMapping(value = "/students/{stId}/schedule/{schId}/{weekDay}", method = RequestMethod.GET)
+    public ResponseEntity<?> getScheduleDayForStudent(@PathVariable Long stId,
+                                                      @PathVariable Long schId, @PathVariable String weekDay){
+        Student student = studentService.getStudentById(stId);
+        if (student != null) {
+            if (student.getClazzId() != null) {
+                return getWeekDayForClass(student.getClazzId(), schId, weekDay.toUpperCase());
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
 }

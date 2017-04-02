@@ -1,6 +1,8 @@
 package app.services;
 
+import app.interfaces.ClazzService;
 import app.interfaces.TeacherService;
+import app.models.Clazz;
 import app.models.Teacher;
 import app.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private ClazzService clazzService;
 
     @Override
     public Teacher addTeacher(Teacher teacher) {
@@ -41,6 +45,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher findTeacherByClazzesId(Long clazzesId) {
-        return teacherRepository.findTeacherByClazzesId(clazzesId);
+        Clazz clazz = clazzService.getClazzById(clazzesId);
+        if (clazz != null) {
+            if (clazz.getTeacherId() != null) {
+                return teacherRepository.findOne(clazz.getTeacherId());
+            }
+        }
+        return null;
     }
 }

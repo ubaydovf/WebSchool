@@ -12,6 +12,7 @@ public class Awards implements Serializable{
     /** Fields */
     @Id
     private Long id;
+    private Long ownerId;
 
     @ManyToMany
     private List<Medal> medalsList;

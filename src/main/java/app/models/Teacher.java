@@ -1,7 +1,5 @@
 package app.models;
 
-import app.models.schedule.ScheduleWeek;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,19 +16,15 @@ public class Teacher implements Serializable {
     private String sureName;
     private String lastName;
     private Date dateOfBirth;
-    private Integer age;
+    private Integer age;            /* must calculate auto */
 
     @ManyToMany
     private List<Subject> subjects;
 
-    @OneToOne
-    private ScheduleWeek scheduleWeek;
+//    @OneToOne                                 //Fix it later
+//    private ScheduleWeek scheduleWeek;
 
-    @OneToMany
-    private List<Clazz> clazzes;
-
-    @OneToOne
-    private Awards award;
+    private Long awardId;
 
     /** Constructors */
     public Teacher() {
@@ -49,13 +43,6 @@ public class Teacher implements Serializable {
 
     public void removeSubject(Subject subject){
         subjects.remove(subject);
-    }
-    public void addClass(Clazz clazz){
-        clazzes.add(clazz);
-    }
-
-    public void removeClass(Clazz clazz){
-        clazzes.remove(clazz);
     }
 
     /** Getters and Setters */
@@ -111,27 +98,19 @@ public class Teacher implements Serializable {
         this.subjects = subjects;
     }
 
-    public ScheduleWeek getScheduleWeek() {
-        return scheduleWeek;
+//    public ScheduleWeek getScheduleWeek() {
+//        return scheduleWeek;
+//    }
+//
+//    public void setScheduleWeek(ScheduleWeek scheduleWeek) {
+//        this.scheduleWeek = scheduleWeek;
+//    }
+
+    public Long getAward() {
+        return awardId;
     }
 
-    public void setScheduleWeek(ScheduleWeek scheduleWeek) {
-        this.scheduleWeek = scheduleWeek;
-    }
-
-    public List<Clazz> getClazzes() {
-        return clazzes;
-    }
-
-    public void setClazzes(List<Clazz> clazzes) {
-        this.clazzes = clazzes;
-    }
-
-    public Awards getAward() {
-        return award;
-    }
-
-    public void setAward(Awards award) {
-        this.award = award;
+    public void setAward(Long award) {
+        this.awardId = award;
     }
 }

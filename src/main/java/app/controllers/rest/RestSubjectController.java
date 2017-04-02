@@ -15,23 +15,38 @@ public class RestSubjectController {
     @Autowired
     private SubjectService subjectService;
 
+    /** ----------------------------- /subjects --------------------------------- */
     @RequestMapping(value = "/subjects", method = RequestMethod.GET)
-    public ResponseEntity<List<Subject>> getStudents(){
-        return new ResponseEntity<>(subjectService.getSubjects(), HttpStatus.OK);
+    public ResponseEntity<List<Subject>> getSubjects(){
+        List<Subject> subjects = subjectService.getSubjects();
+        if (subjects.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(subjects, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getSubject(@PathVariable Long id){
-        return new ResponseEntity<>(subjectService.getSubjectById(id), HttpStatus.OK);
+        Subject subject = subjectService.getSubjectById(id);
+        if (subject == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(subject, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subjects", method = RequestMethod.POST)
     public ResponseEntity<?> createSubject(@RequestBody Subject subject){
+        if (subject == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(subjectService.addSubject(subject), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateSubject(@RequestBody Subject subject){
+        if (subject == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(subjectService.updateSubject(subject), HttpStatus.OK);
     }
 
