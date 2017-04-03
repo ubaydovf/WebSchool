@@ -1,6 +1,10 @@
 package app.models;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +27,9 @@ public class Teacher implements Serializable {
 
 //    @OneToOne                                 //Fix it later
 //    private ScheduleWeek scheduleWeek;
-
-    private Long awardId;
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Achievements achievements;
 
     /** Constructors */
     public Teacher() {
@@ -40,9 +45,15 @@ public class Teacher implements Serializable {
     public void addSubject(Subject subject){
         subjects.add(subject);
     }
-
     public void removeSubject(Subject subject){
         subjects.remove(subject);
+    }
+
+    public void addAchivement(Achievement achievement) {
+        this.achievements.addAchievement(achievement);
+    }
+    public void removeAchivement(Achievement achievement) {
+        this.achievements.removeAchievement(achievement);
     }
 
     /** Getters and Setters */
@@ -106,11 +117,11 @@ public class Teacher implements Serializable {
 //        this.scheduleWeek = scheduleWeek;
 //    }
 
-    public Long getAward() {
-        return awardId;
+    public Achievements getAchievements() {
+        return achievements;
     }
 
-    public void setAward(Long award) {
-        this.awardId = award;
+    public void setAchievements(Achievements achievements) {
+        this.achievements = achievements;
     }
 }

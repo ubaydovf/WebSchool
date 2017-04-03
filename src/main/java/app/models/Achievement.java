@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class Medal implements Serializable {
+public class Achievement implements Serializable {
 
     /** Fields */
     @Id
@@ -20,10 +20,10 @@ public class Medal implements Serializable {
 
 
     /** Constructors */
-    public Medal() {
+    public Achievement() {
     }
 
-    public Medal(String name, String description) {
+    public Achievement(String name, String description) {
         this.name = name;
         this.description = description;
     }

@@ -1,6 +1,10 @@
 package app.models;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
@@ -15,7 +19,10 @@ public class Clazz implements Serializable {
     private String language;
     private Long teacherId;
     private Long captainId;
-    private Long awardsId;
+
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Achievements achievements;
 
     /** Constructors */
     public Clazz() {
@@ -28,6 +35,13 @@ public class Clazz implements Serializable {
     }
 
     /** Methods */
+
+    public void addAchivement(Achievement achievement) {
+        this.achievements.addAchievement(achievement);
+    }
+    public void removeAchivement(Achievement achievement) {
+        this.achievements.removeAchievement(achievement);
+    }
 
     /** Getters and Setters */
     public Long getId() {
@@ -74,11 +88,11 @@ public class Clazz implements Serializable {
         this.captainId = captainId;
     }
 
-    public Long getAwards() {
-        return awardsId;
+    public Achievements getAchievements() {
+        return achievements;
     }
 
-    public void setAwards(Long awards) {
-        this.awardsId = awards;
+    public void setAchievements(Achievements achievements) {
+        this.achievements = achievements;
     }
 }

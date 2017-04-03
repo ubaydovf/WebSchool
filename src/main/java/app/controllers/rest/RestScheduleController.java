@@ -19,11 +19,11 @@ public class RestScheduleController {
     private ScheduleService scheduleService;
     @Autowired
     private StudentService studentService;
-
+    // TODO обмозговать эту часть !
     /** -------------------------    /schedules     ----------------------- */
     /* Get a schedule */
     @RequestMapping(value = "/schedules", method = RequestMethod.GET)
-    public ResponseEntity<List<Schedule>> getStudents(){
+    public ResponseEntity<List<Schedule>> getSchedules(){
         List<Schedule> schedules = scheduleService.getSchedules();
         if (schedules.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

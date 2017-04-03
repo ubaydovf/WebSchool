@@ -1,6 +1,10 @@
 package app.models;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +31,9 @@ public class Student implements Serializable {
     @ManyToMany
     private List<Book> books = new ArrayList<>();
 
-    private Long awardsId;
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Achievements achievements = new Achievements();
     private Boolean isCaptain;
 
     /** Constructors */
@@ -67,6 +73,13 @@ public class Student implements Serializable {
     }
     public void removeBook(Book bookId){
         books.remove(bookId);
+    }
+
+    public void addAchivement(Achievement achievement) {
+        this.achievements.addAchievement(achievement);
+    }
+    public void removeAchivement(Achievement achievement) {
+        this.achievements.removeAchievement(achievement);
     }
 
     /** Setter and Getters */
@@ -171,12 +184,12 @@ public class Student implements Serializable {
         this.books = books;
     }
 
-    public Long getAwards() {
-        return awardsId;
+    public Achievements getAchievements() {
+        return this.achievements;
     }
 
-    public void setAwards(Long awards) {
-        this.awardsId = awards;
+    public void setAchievements(Achievements achievements) {
+        this.achievements = achievements;
     }
 
     public Boolean getCaptain() {
