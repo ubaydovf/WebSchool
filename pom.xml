@@ -5,8 +5,36 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>webschool</groupId>
-    <artifactId>ws</artifactId>
+    <artifactId>school</artifactId>
     <version>1.0</version>
+    <packaging>war</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-war-plugin</artifactId>-->
+            <!--<configuration>-->
+              <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
+               <!--<outputDirectory>${basedir}</outputDirectory>-->
+                        <!--<archive>-->
+                            <!--<manifest>-->
+                                <!--<mainClass>app.SpringBootApp</mainClass>-->
+                            <!--</manifest>-->
+                        <!--</archive>-->
+            <!--</configuration>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -38,11 +66,16 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-freemarker</artifactId>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 
         <dependency>
@@ -57,21 +90,13 @@
             <version>3.5</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.zaxxer</groupId>-->
+            <!--<artifactId>HikariCP</artifactId>-->
+        <!--</dependency>-->
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 
 </project>
